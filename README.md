@@ -28,7 +28,6 @@ The _"Quantum stack"_ is a serverless web development stack made by [Carlos](htt
 - [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Prisma](https://www.prisma.io/)
-- [Jotai](https://jotai.org/)
 - [NextAuth.js](https://next-auth.js.org/)
 
 ## Getting started
