@@ -8,8 +8,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "npm run prisma:migrate && next build",
-    "prisma:migrate": "DATABASE_URL=\"$MIGRATE_DATABASE_URL\" prisma migrate deploy"
+    "vercel-build": "dotenv -e .env.migrations -- prisma migrate deploy && next build",
+    "prisma:migrate": "dotenv -e .env.migrations -- prisma migrate dev",
+    "prisma:generate": "prisma generate --data-proxy"
   },
   "dependencies": {
     "@next/font": "13.0.7",
@@ -26,6 +27,7 @@
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
+    "dotenv-cli": "^6.0.0",
     "eslint-config-prettier": "^8.5.0",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
