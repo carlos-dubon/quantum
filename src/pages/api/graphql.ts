@@ -6,8 +6,6 @@ import { loadSchemaSync } from "@graphql-tools/load";
 import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { resolvers } from "../../graphql/resolvers";
 
-// https://nextjs.org/docs/advanced-features/react-18/switchable-runtime#edge-api-routes
-// Enable you to build high performance APIs with Next.js using the Edge Runtime.
 export const config = {
   // We don't want body parser to process the requests
   api: {

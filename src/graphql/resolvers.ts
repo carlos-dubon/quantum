@@ -1,5 +1,5 @@
 import { prisma } from "../prisma/client";
-import { Resolvers } from "./types";
+import { Resolvers } from "./types/graphql";
 
 const resolvers: Resolvers = {
   Query: {

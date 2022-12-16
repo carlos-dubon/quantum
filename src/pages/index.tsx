@@ -1,10 +1,21 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import { NextPage } from "next/types";
+import { useQuery } from "@apollo/client";
+import { gql } from "@apollo/client/core";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const Home: NextPage = () => {
+  const { loading, data } = useQuery(gql`
+    query {
+      books {
+        id
+        name
+      }
+    }
+  `);
+
   return (
     <>
       <Head>
@@ -15,6 +26,10 @@ const Home: NextPage = () => {
       </Head>
       <div className={inter.className}>
         <p className="text-blue-800 text-2xl font-medium">Quantum</p>
+
+        <div>
+          {loading ? <p>Loading...</p> : <div>{JSON.stringify(data)}</div>}
+        </div>
       </div>
     </>
   );
