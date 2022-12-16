@@ -1,7 +1,7 @@
 <h1 align="center">Quantum ⚛️</h1>
 
 <p align="center" style="font-size: 1.2rem">
- A tech stack to build and scale full-stack applications on the edge.
+ A tech stack to build and scale full-stack applications on serverless environments.
 </p>
 
 <hr />
@@ -18,14 +18,6 @@
   src="https://img.shields.io/github/issues-pr/carlos-dubon/quantum?style=flat-square"
   alt="Pulls"
 />
-
-## What is the edge?
-
-The edge is a form of serverless compute that allows running server-side code geographically closer to your users. Traditionally, applications that required such computation would be deployed to a single region such as [us-east-1](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones). The edge works similarly to [Serverless Functions](https://vercel.com/docs/concepts/functions/serverless-functions) but without the cold starts because they have a smaller runtime that leads to fast startup times.
-
-Examples of such environments include [Vercel Edge Runtime](https://edge-runtime.vercel.app/) and [Cloudflare Workers](https://workers.cloudflare.com/). Now this all sounds great but one of the limitations that you may run into while working with on the edge is that you can't access a traditional database and this is because edge environments only support HTTP based connections and traditional databases require long-lived TCP connections.
-
-One way that you can get around this limitation is by using the [Prisma Data Proxy](https://www.prisma.io/docs/data-platform/data-proxy) it's a proxy server for your database that allows you to interact with your database over HTTP and manage your connection pool for your database.
 
 ## Getting started
 
@@ -58,3 +50,12 @@ One way that you can get around this limitation is by using the [Prisma Data Pro
 6. Use `yarn prisma:generate` to generate a Prisma Client compatible with the Prisma Data Proxy.
 
 ## Deploying to Vercel
+
+Import your project from GitHub and add these 2 environment variables:
+
+```bash
+# Use your Prisma Data Proxy connection string for the DATABASE_URL
+DATABASE_URL=''
+# This ensures the Prisma Client for the Data Proxy is generated during the build step.
+PRISMA_GENERATE_DATAPROXY=true
+```

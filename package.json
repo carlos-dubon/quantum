@@ -1,6 +1,6 @@
 {
   "name": "quantum",
-  "description": "⚛️ A tech stack to build and scale full-stack applications on the edge.",
+  "description": "⚛️ A tech stack to build and scale full-stack applications on serverless environments.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,15 +8,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "dotenv -e .env.migrations -- prisma migrate deploy && next build",
     "prisma:migrate": "dotenv -e .env.migrations -- prisma migrate dev",
     "prisma:generate": "prisma generate --data-proxy"
   },
   "dependencies": {
     "@next/font": "13.0.7",
     "@prisma/client": "^4.7.1",
+    "apollo-server-core": "^3.11.1",
+    "apollo-server-micro": "^3.11.1",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.7",
+    "graphql": "^16.6.0",
+    "micro": "^10.0.1",
     "next": "13.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
