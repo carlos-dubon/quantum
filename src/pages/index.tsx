@@ -3,6 +3,8 @@ import { Inter } from "@next/font/google";
 import { NextPage } from "next/types";
 import { useQuery } from "@apollo/client";
 import { graphql } from "../graphql/types";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +19,12 @@ const GetBooksDocument = graphql(`
 
 const Home: NextPage = () => {
   const { loading, data } = useQuery(GetBooksDocument);
+
+  const { data: session } = useSession();
+
+  const router = useRouter();
+
+  console.log(session);
 
   return (
     <>
@@ -36,6 +44,29 @@ const Home: NextPage = () => {
             <div>{JSON.stringify(data?.books?.at(0)?.name)}</div>
           )}
         </div>
+
+        {session ? (
+          <div>
+            <p>Welcome {session.user?.name}</p>
+            <button
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Log out
+            </button>
+          </div>
+        ) : (
+          <div>
+            <button
+              onClick={() => {
+                router.push("/api/auth/signin");
+              }}
+            >
+              Sign in
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
