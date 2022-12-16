@@ -19,9 +19,21 @@
   alt="Pulls"
 />
 
+## The Quantum stack
+
+The _"Quantum stack"_ is a serverless web development stack made by [Carlos](https://github.com/carlos-dubon) focused on **simplicity**, **modularity**, and **full-stack typesafety**. It consists of:
+
+- [Next.js](https://nextjs.org/)
+- [Apollo GraphQL](https://www.apollographql.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prisma](https://www.prisma.io/)
+- [Jotai](https://jotai.org/)
+- [NextAuth.js](https://next-auth.js.org/)
+
 ## Getting started
 
-1. Provision a new PostgreSQL database. We recommend using [Railway](https://railway.app/) for this, as you get a free database under their [free tier](https://railway.app/pricing).
+1. Provision a new database. We recommend using [Railway](https://railway.app/) for this, as you get a free PostgreSQL database under their [free tier](https://railway.app/pricing).
 
    If you plan on changing the database provider to something like MySQL remember to change it as well in the `schema.prisma` file:
 
@@ -48,6 +60,12 @@
 5. Use `yarn prisma:migrate` to run migrations. The Prisma Data Proxy cannot run migrations on your database yet, so you must use your database connection string to do that.
 
 6. Use `yarn prisma:generate` to generate a Prisma Client compatible with the Prisma Data Proxy.
+
+7. Use `yarn prisma:studio` to launch a Prisma Data Studio in your browser that uses the Prisma Data Proxy.
+
+## GraphQL codegen
+
+Generate TypeScript types from your GraphQL schema and operations using `yarn generate`.
 
 ## Deploying to Vercel
 

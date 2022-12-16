@@ -18,13 +18,13 @@ const GetBooksDocument = graphql(`
 `);
 
 const Home: NextPage = () => {
-  const { loading, data } = useQuery(GetBooksDocument);
+  const { loading, error, data } = useQuery(GetBooksDocument);
 
   const { data: session } = useSession();
 
   const router = useRouter();
 
-  console.log(session);
+  console.log("Session", session);
 
   return (
     <>
@@ -40,8 +40,10 @@ const Home: NextPage = () => {
         <div>
           {loading ? (
             <p>Loading...</p>
+          ) : error ? (
+            <p>Something went.</p>
           ) : (
-            <div>{JSON.stringify(data?.books?.at(0)?.name)}</div>
+            <div>{JSON.stringify(data?.books)}</div>
           )}
         </div>
 
