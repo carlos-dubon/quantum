@@ -1,6 +1,7 @@
 import { gql, ApolloServer } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { NextApiRequest, NextApiResponse } from "next/types";
+import { prisma } from "../../prisma/client";
 
 // https://nextjs.org/docs/advanced-features/react-18/switchable-runtime#edge-api-routes
 // Enable you to build high performance APIs with Next.js using the Edge Runtime.
@@ -14,30 +15,35 @@ export const config = {
 const typeDefs = gql`
   type Book {
     id: String
-    text: String
+    name: String
   }
 
   type Query {
     books: [Book]
   }
 
-  #type Mutation{
-  #
-  # }
+  type Mutation {
+    addBook(name: String!): Book!
+  }
 `;
 
 const resolvers = {
   Query: {
     books: (_parent, _args, _context) => {
-      return [
-        {
-          id: "1",
-          text: "Hello world",
-        },
-      ];
+      return prisma.book.findMany();
     },
   },
-  //   Mutation: {},
+  Mutation: {
+    addBook: async (_parent, args, _context) => {
+      const { name } = args;
+
+      return prisma.book.create({
+        data: {
+          name,
+        },
+      });
+    },
+  },
 };
 
 const apolloServer = new ApolloServer({
