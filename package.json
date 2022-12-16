@@ -10,6 +10,7 @@
     "lint": "next lint",
     "prisma:migrate": "dotenv -e .env.migrations -- prisma migrate dev",
     "prisma:generate": "prisma generate --data-proxy",
+    "prisma:studio": "dotenv -e .env.migrations -- prisma studio",
     "generate": "graphql-codegen --watch"
   },
   "dependencies": {
