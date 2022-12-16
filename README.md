@@ -25,7 +25,7 @@ The _"Quantum stack"_ is a serverless web development stack made by [Carlos](htt
 
 - [Next.js](https://nextjs.org/)
 - [Apollo GraphQL](https://www.apollographql.com/)
-- [TailwindCSS](https://tailwindcss.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Prisma](https://www.prisma.io/)
 - [Jotai](https://jotai.org/)
@@ -66,6 +66,21 @@ The _"Quantum stack"_ is a serverless web development stack made by [Carlos](htt
 ## GraphQL codegen
 
 Generate TypeScript types from your GraphQL schema and operations using `yarn generate`.
+
+To get this working with client operations you must use the `graphql` function exported from the auto-generated `gql.ts` file under the `src/graphql/types` folder as follows:
+
+```TypeScript
+import { graphql } from "../graphql/types";
+
+const GetBooksDocument = graphql(`
+  query GetBooks { # Remember to give your operation a name
+    books {
+      id
+      name
+    }
+  }
+`);
+```
 
 ## Deploying to Vercel
 
