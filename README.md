@@ -60,7 +60,7 @@ The _"Quantum stack"_ is a serverless web development stack made by [Carlos](htt
 
 6. Use `yarn prisma:generate` to generate a Prisma Client compatible with the Prisma Data Proxy.
 
-7. Use `yarn prisma:studio` to launch a Prisma Data Studio in your browser that uses the Prisma Data Proxy.
+7. Use `yarn prisma:studio` to launch a Prisma Data Studio in your browser.
 
 ## GraphQL codegen
 
