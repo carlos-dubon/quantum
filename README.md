@@ -66,10 +66,10 @@ The _"Quantum stack"_ is a serverless web development stack made by [Carlos](htt
 
 Generate TypeScript types from your GraphQL schema and operations using `yarn generate`.
 
-To get this working with client operations you must use the `graphql` function exported from the auto-generated `gql.ts` file under the `src/graphql/types` folder as follows:
+To get this working with client operations you must use the `graphql` function exported from the auto-generated `gql.ts` file under the `src/graphql/types/client` folder as follows:
 
 ```TypeScript
-import { graphql } from "../graphql/types";
+import { graphql } from "../graphql/types/client";
 
 const GetBooksDocument = graphql(`
   query GetBooks { # Remember to give your operation a name
