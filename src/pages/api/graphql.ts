@@ -2,9 +2,9 @@ import { ApolloServer } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { NextApiRequest, NextApiResponse } from "next/types";
 
-import { loadSchemaSync } from "@graphql-tools/load";
-import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
 import { resolvers } from "../../graphql/resolvers";
+
+import Schema from "../../graphql/schema";
 
 export const config = {
   // We don't want body parser to process the requests
@@ -13,14 +13,11 @@ export const config = {
   },
 };
 
-const typeDefs = loadSchemaSync("src/graphql/schema.gql", {
-  loaders: [new GraphQLFileLoader()],
-});
-
 const apolloServer = new ApolloServer({
-  typeDefs,
+  typeDefs: Schema,
   resolvers,
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+  introspection: true,
 });
 
 let apolloHandler: (

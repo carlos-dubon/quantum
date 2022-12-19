@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Inter } from "@next/font/google";
 import { NextPage } from "next/types";
 import { useQuery } from "@apollo/client";
-import { graphql } from "../graphql/types";
+import { graphql } from "../graphql/types/client";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
