@@ -38,12 +38,19 @@ export default NextAuth({
   ],
   callbacks: {
     jwt: ({ token, user }) => {
-      if (user) {
+      const typedUser = user as {
+        id: string;
+        name: string;
+        email: string;
+        userType: string;
+      };
+
+      if (typedUser) {
         // add id property
-        token.id = user.id;
+        token.id = typedUser.id;
 
         // add userType property
-        token.userType = user.userType;
+        token.userType = typedUser.userType;
       }
 
       return token;
