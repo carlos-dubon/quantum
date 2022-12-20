@@ -1,16 +1,30 @@
-import { gql } from "apollo-server-micro";
+import { makeSchema, objectType, queryType } from "nexus";
+import { join } from "path";
 
-export default gql`
-  type Book {
-    id: String
-    name: String
-  }
+const Book = objectType({
+  name: "Book",
+  definition(t) {
+    t.id("id"), t.string("name");
+  },
+});
 
-  type Query {
-    books: [Book]
-  }
+const Query = queryType({
+  definition(t) {
+    t.list.field("books", {
+      type: Book,
+      resolve: (_parent, _args, ctx) => {
+        return ctx.prisma.book.findMany();
+      },
+    });
+  },
+});
 
-  type Mutation {
-    addBook(name: String!): Book!
-  }
-`;
+const schema = makeSchema({
+  types: [Query, Book],
+  contextType: {
+    module: join(__dirname, "./context.ts"),
+    export: "Context",
+  },
+});
+
+export { schema };

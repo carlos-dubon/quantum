@@ -2,11 +2,9 @@ import { ApolloServer } from "apollo-server-micro";
 import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { NextApiRequest, NextApiResponse } from "next/types";
 import Cors from "micro-cors";
-
-import { resolvers } from "../../graphql/resolvers";
-
-import Schema from "../../graphql/schema";
 import { RequestHandler } from "micro/types/src/lib";
+import { context } from "../../graphql/context";
+import { schema } from "../../graphql/schema";
 
 export const config = {
   // We don't want body parser to process the requests
@@ -18,8 +16,8 @@ export const config = {
 const cors = Cors();
 
 const apolloServer = new ApolloServer({
-  typeDefs: Schema,
-  resolvers,
+  schema,
+  context,
   plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
   introspection: true,
 });
