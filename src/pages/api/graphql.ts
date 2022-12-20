@@ -1,10 +1,10 @@
 import { ApolloServer } from "apollo-server-micro";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { NextApiRequest, NextApiResponse } from "next/types";
-
-import { resolvers } from "../../graphql/resolvers";
-
-import Schema from "../../graphql/schema";
+import Cors from "micro-cors";
+import { RequestHandler } from "micro/types/src/lib";
+import { context } from "../../graphql/context";
+import { schema } from "../../graphql/schema";
 
 export const config = {
   // We don't want body parser to process the requests
@@ -13,29 +13,29 @@ export const config = {
   },
 };
 
+const cors = Cors();
+
 const apolloServer = new ApolloServer({
-  typeDefs: Schema,
-  resolvers,
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+  schema,
+  context,
+  plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })],
   introspection: true,
 });
 
-let apolloHandler: (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => Promise<unknown>;
+const startServer = apolloServer.start();
 
-export default async function handler(
+export default cors(async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!apolloHandler) {
-    await apolloServer.start();
-
-    apolloHandler = apolloServer.createHandler({
-      path: "/api/graphql",
-    });
+  if (req.method == "OPTIONS") {
+    res.end();
+    return false;
   }
 
-  return apolloHandler(req, res);
-}
+  await startServer;
+
+  await apolloServer.createHandler({
+    path: "/api/graphql",
+  })(req, res);
+} as RequestHandler);

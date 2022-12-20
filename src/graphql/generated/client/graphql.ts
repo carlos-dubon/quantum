@@ -16,17 +16,17 @@ export type Scalars = {
 
 export type Book = {
   __typename?: 'Book';
-  id?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addBook: Book;
+  createBook: Book;
 };
 
 
-export type MutationAddBookArgs = {
+export type MutationCreateBookArgs = {
   name: Scalars['String'];
 };
 
