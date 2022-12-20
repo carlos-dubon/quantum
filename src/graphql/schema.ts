@@ -2,7 +2,7 @@ import {
   makeSchema,
   objectType,
   queryType,
-  extendType,
+  mutationType,
   nonNull,
   stringArg,
 } from "nexus";
@@ -15,7 +15,7 @@ const Book = objectType({
   },
 });
 
-const Query = queryType({
+const Books = queryType({
   definition(t) {
     t.list.field("books", {
       type: Book,
@@ -26,8 +26,7 @@ const Query = queryType({
   },
 });
 
-const CreateBook = extendType({
-  type: "Mutation",
+const CreateBook = mutationType({
   definition(t) {
     t.nonNull.field("createBook", {
       type: Book,
@@ -48,14 +47,14 @@ const CreateBook = extendType({
 });
 
 const schema = makeSchema({
-  types: [Query, Book, CreateBook],
+  types: [Book, Books, CreateBook],
   contextType: {
     module: join(process.cwd(), "src/graphql/context.ts"),
     export: "Context",
   },
   outputs: {
     schema: join(process.cwd(), "src/graphql/generated/schema.graphql"),
-    typegen: join(process.cwd(), "src/graphql/generated/nexus-typegen.ts"),
+    typegen: join(process.cwd(), "src/graphql/generated/nexus-typegen.d.ts"),
   },
 });
 

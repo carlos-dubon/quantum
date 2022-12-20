@@ -1,17 +1,11 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-  schema: "src/graphql/schema.ts",
+  schema: "src/graphql/generated/schema.graphql",
   documents: ["./src/**/*.{ts,tsx}"],
   ignoreNoDocuments: true,
   generates: {
-    "src/graphql/types/server.ts": {
-      plugins: [
-        "@graphql-codegen/typescript",
-        "@graphql-codegen/typescript-resolvers",
-      ],
-    },
-    "src/graphql/types/client/": {
+    "src/graphql/generated/client/": {
       preset: "client",
       plugins: [],
     },

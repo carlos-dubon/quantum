@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:nexus-typegen": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' --transpile-only schema",
+    "build": "npm run build:nexus-typegen && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
@@ -35,8 +36,6 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.1",
     "@graphql-codegen/client-preset": "^1.2.3",
-    "@graphql-codegen/typescript": "^2.8.5",
-    "@graphql-codegen/typescript-resolvers": "^2.7.10",
     "@types/micro-cors": "^0.1.2",
     "@types/node": "18.11.15",
     "@types/react": "18.0.26",
