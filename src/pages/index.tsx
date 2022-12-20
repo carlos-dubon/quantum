@@ -1,21 +1,21 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import { NextPage } from "next/types";
-import { useQuery } from "@apollo/client";
-import { graphql } from "../graphql/types/client";
+import { gql, useQuery } from "@apollo/client";
+//import { graphql } from "../graphql/types/client";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const GetBooksDocument = graphql(`
+const GetBooksDocument = gql`
   query GetBooks {
     books {
       id
       name
     }
   }
-`);
+`;
 
 const Home: NextPage = () => {
   const { loading, error, data } = useQuery(GetBooksDocument);

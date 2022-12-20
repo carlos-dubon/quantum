@@ -1,4 +1,11 @@
-import { makeSchema, objectType, queryType } from "nexus";
+import {
+  makeSchema,
+  objectType,
+  queryType,
+  extendType,
+  nonNull,
+  stringArg,
+} from "nexus";
 import { join } from "path";
 
 const Book = objectType({
@@ -19,11 +26,36 @@ const Query = queryType({
   },
 });
 
+const CreateBook = extendType({
+  type: "Mutation",
+  definition(t) {
+    t.nonNull.field("createBook", {
+      type: Book,
+      args: {
+        name: nonNull(stringArg()),
+      },
+      resolve: (_parent, args, ctx) => {
+        const { name } = args;
+
+        return ctx.prisma.book.create({
+          data: {
+            name,
+          },
+        });
+      },
+    });
+  },
+});
+
 const schema = makeSchema({
-  types: [Query, Book],
+  types: [Query, Book, CreateBook],
   contextType: {
-    module: join(__dirname, "./context.ts"),
+    module: join(process.cwd(), "src/graphql/context.ts"),
     export: "Context",
+  },
+  outputs: {
+    schema: join(process.cwd(), "src/graphql/generated/schema.graphql"),
+    typegen: join(process.cwd(), "src/graphql/generated/nexus-typegen.ts"),
   },
 });
 
