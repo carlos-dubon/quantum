@@ -10,11 +10,6 @@ const config: CodegenConfig = {
         "@graphql-codegen/typescript",
         "@graphql-codegen/typescript-resolvers",
       ],
-      config: {
-        scalars: {
-          EmailAddress: "string",
-        },
-      },
     },
     "src/graphql/types/client/": {
       preset: "client",
