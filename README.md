@@ -25,7 +25,7 @@ The _"Quantum stack"_ is a serverless web development stack made by [Carlos](htt
 
 - [Next.js](https://nextjs.org/)
 - [Apollo GraphQL](https://www.apollographql.com/)
-- [Nexus](https://nexusjs.org/)
+- [GraphQL Nexus](https://nexusjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Prisma](https://www.prisma.io/)
@@ -63,23 +63,22 @@ The _"Quantum stack"_ is a serverless web development stack made by [Carlos](htt
 
 7. Use `yarn prisma:studio` to launch a Prisma Data Studio in your browser.
 
-## GraphQL codegen
+## graphql-codegen
 
-Generate TypeScript types from your GraphQL schema and operations using `yarn generate`.
-
-To get this working with client operations you must use the `graphql` function exported from the auto-generated `gql.ts` file under the `src/graphql/types/client` folder as follows:
+The graphql-codegen [client-preset](https://the-guild.dev/graphql/codegen/plugins/presets/preset-client) provides typed GraphQL operations (Query, Mutation and Subscription).
 
 ```TypeScript
 import { graphql } from "../graphql/types/client";
 
 const GetBooksDocument = graphql(`
-  query GetBooks { # Remember to give your operation a name
+  query GetBooks { # Give your operation a name
     books {
       id
       name
     }
   }
 `);
+
 ```
 
 ## Deploying to Vercel

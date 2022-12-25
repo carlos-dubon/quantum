@@ -1,11 +1,4 @@
-import {
-  makeSchema,
-  objectType,
-  queryType,
-  mutationType,
-  nonNull,
-  stringArg,
-} from "nexus";
+import { makeSchema, objectType, extendType, nonNull, stringArg } from "nexus";
 import { join } from "path";
 
 const Book = objectType({
@@ -15,7 +8,8 @@ const Book = objectType({
   },
 });
 
-const Books = queryType({
+const Books = extendType({
+  type: "Query",
   definition(t) {
     t.list.field("books", {
       type: Book,
@@ -26,7 +20,8 @@ const Books = queryType({
   },
 });
 
-const CreateBook = mutationType({
+const CreateBook = extendType({
+  type: "Mutation",
   definition(t) {
     t.nonNull.field("createBook", {
       type: Book,

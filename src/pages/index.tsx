@@ -41,7 +41,7 @@ const Home: NextPage = () => {
           {loading ? (
             <p>Loading...</p>
           ) : error ? (
-            <p>Something went.</p>
+            <p>Something went wrong.</p>
           ) : (
             <div>{JSON.stringify(data?.books)}</div>
           )}
